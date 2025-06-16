@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,9 @@ namespace Auction.Models
         public double? Price { get; set; }
         public string? ImagePath { get; set; }
         public bool IsSold { get; set; }
+
+        [NotMapped]
+        public IFormFile? Image { get; set; }
 
         [Required]
         public string? IdentityUserId { get; set; }
