@@ -64,36 +64,43 @@
 </div>
 
 <hr />
-<h4>Bids</h4>
-
-<!-- Display Bidding Errors -->
-@if (TempData["BidError"] != null)
+@if (Model.EndTime > DateTime.Now)
 {
-    <div class="alert alert-danger" role="alert">
-        @TempData["BidError"]
+    <h4>Bids</h4>
+
+    <!-- Display Bidding Errors -->
+    @if (TempData["BidError"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @TempData["BidError"]
+        </div>
+    }
+
+    <!-- Bid Placement Form -->
+    <form asp-controller="Bids" asp-action="PlaceBid" method="post">
+        <input type="hidden" name="listingId" value="@Model.Id" />
+        <div class="form-group">
+            <label for="bidAmount">Bid Amount</label>
+            <input type="number" name="bidAmount" class="form-control" step="0.01" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Place Bid</button>
+    </form>
+
+    <!-- Existing Bids List -->
+    <div class="mt-4">
+        <h5>Current Bids</h5>
+        <ul class="list-group">
+            @foreach (var bid in Model.Bids.OrderByDescending(b => b.Price))
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    @bid.user.UserName
+                    <span class="badge bg-success rounded-pill">$@bid.Price.ToString("N2")</span>
+                </li>
+            }
+        </ul>
     </div>
 }
-
-<!-- Bid Placement Form -->
-<form asp-controller="Bids" asp-action="PlaceBid" method="post">
-    <input type="hidden" name="listingId" value="@Model.Id" />
-    <div class="form-group">
-        <label for="bidAmount">Bid Amount</label>
-        <input type="number" name="bidAmount" class="form-control" step="0.01" required />
-    </div>
-    <button type="submit" class="btn btn-primary mt-2">Place Bid</button>
-</form>
-
-<!-- Existing Bids List -->
-<div class="mt-4">
-    <h5>Current Bids</h5>
-    <ul class="list-group">
-        @foreach (var bid in Model.Bids.OrderByDescending(b => b.Price))
-        {
-            <li class="list-group-item d-flex justify-content-between align-items-center">
-                @bid.user.UserName
-                <span class="badge bg-success rounded-pill">$@bid.Price.ToString("N2")</span>
-            </li>
-        }
-    </ul>
-</div>
+else
+{
+    <p class="text-danger">This auction has ended.</p>
+}

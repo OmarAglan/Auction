@@ -31,6 +31,12 @@ namespace Auction.Controllers
                 return NotFound();
             }
 
+            if (listing.EndTime < DateTime.Now)
+            {
+                TempData["BidError"] = "This auction has ended.";
+                return RedirectToAction("Details", "Listings", new { id = listingId });
+            }
+
             // Check if bid is higher than starting price or current highest bid
             var highestBid = listing.Bids.Any() ? listing.Bids.Max(b => b.Price) : listing.Price;
             if (bidAmount <= highestBid)
