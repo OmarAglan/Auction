@@ -10,6 +10,11 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Ensure the project uses the latest .NET 8 framework and all dependencies and tools are up-to-date before development begins.*
 
+### Task 0.0: Enhance Project README
+
+-   **File:** `README.md`
+-   **Action:** Update `README.md` to include a brief project description and its main objective. This description can be based on the "Objective" already stated in the roadmap: "Modernize and build a fully functional auction web application based on the provided project structure."
+-   **Details:** Ensure the `README.md` provides a welcoming overview for anyone looking at the project.
 ### Task 0.1: Verify and Update Target Framework
 
 -   **File:** `Auction.csproj`
