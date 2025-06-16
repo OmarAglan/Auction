@@ -10,12 +10,12 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Ensure the project uses the latest .NET 8 framework and all dependencies and tools are up-to-date before development begins.*
 
-### Task 0.0: Enhance Project README
+### [x] Task 0.0: Enhance Project README
 
 -   **File:** `README.md`
 -   **Action:** Update `README.md` to include a brief project description and its main objective. This description can be based on the "Objective" already stated in the roadmap: "Modernize and build a fully functional auction web application based on the provided project structure."
 -   **Details:** Ensure the `README.md` provides a welcoming overview for anyone looking at the project.
-### Task 0.1: Verify and Update Target Framework
+### [x] Task 0.1: Verify and Update Target Framework
 
 -   **File:** `Auction.csproj`
 -   **Action:** Verify the project's target framework is set to `net8.0`.
@@ -24,7 +24,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     <TargetFramework>net8.0</TargetFramework>
     ```
 
-### Task 0.2: Update .NET SDK Tools
+### [x] Task 0.2: Update .NET SDK Tools
 
 -   **Action:** Ensure the `aspnet-codegenerator` tool is installed globally and updated to the latest version compatible with .NET 8.
 -   **Commands (run in the terminal):**
@@ -36,7 +36,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     dotnet tool install -g dotnet-aspnet-codegenerator
     ```
 
-### Task 0.3: Update NuGet Packages
+### [x] Task 0.3: Update NuGet Packages
 
 -   **Action:** Update all `Microsoft.*` packages to the latest stable .NET 8 patch version.
 -   **Commands (run in the terminal at the project root):**
@@ -48,7 +48,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     dotnet add package Microsoft.EntityFrameworkCore.Tools --version 8.0.*
     ```
 
-### Task 0.4: Restore All Dependencies
+### [x] Task 0.4: Restore All Dependencies
 
 -   **Action:** After updating packages, run a restore to ensure all dependencies are correctly downloaded.
 -   **Command (run in the terminal at the project root):**
@@ -60,7 +60,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Establish the database schema for the application's core entities.*
 
-### Task 1.1: Complete the Comment Model
+### [x] Task 1.1: Complete the Comment Model
 
 -   **File:** `Models/Comment.cs`
 -   **Action:** Replace the empty class with properties for content, and relationships to the User and Listing.
@@ -91,7 +91,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 1.2: Update the Database Context
+### [x] Task 1.2: Update the Database Context
 
 -   **File:** `Data/ApplicationDbContext.cs`
 -   **Action:** Add `DbSet` properties for `Listing`, `Bid`, and `Comment` to make Entity Framework aware of these models.
@@ -102,7 +102,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     public DbSet<Comment> Comments { get; set; }
     ```
 
-### Task 1.3: Create the Database Migration
+### [x] Task 1.3: Create the Database Migration
 
 -   **Action:** Run the EF Core command to generate a migration script based on the model changes.
 -   **Command (run in the terminal at the project root):**
@@ -110,7 +110,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     dotnet ef migrations add AddAuctionModels
     ```
 
-### Task 1.4: Apply the Migration to the Database
+### [x] Task 1.4: Apply the Migration to the Database
 
 -   **Action:** Run the EF Core command to update the database with the new tables.
 -   **Command (run in the terminal at the project root):**
@@ -122,7 +122,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Enable users to create, view, and manage auction listings.*
 
-### Task 2.1: Scaffold the Listings Controller and Views
+### [x] Task 2.1: Scaffold the Listings Controller and Views
 
 -   **Action:** Use the `aspnet-codegenerator` tool to automatically create the `ListingsController` and associated CRUD views.
 -   **Command (run in the terminal at the project root):**
@@ -130,7 +130,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     dotnet aspnet-codegenerator controller -name ListingsController -m Listing -dc ApplicationDbContext --useDefaultLayout -outDir Controllers
     ```
 
-### Task 2.2: Secure and Enhance the `ListingsController`
+### [x] Task 2.2: Secure and Enhance the `ListingsController`
 
 -   **File:** `Controllers/ListingsController.cs`
 -   **Action:** Replace the scaffolded controller code with an enhanced version that injects `UserManager`, secures endpoints, handles user-specific data, and eager-loads related entities.
@@ -214,7 +214,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 2.3: Add Navigation Link
+### [x] Task 2.3: Add Navigation Link
 
 -   **File:** `Views/Shared/_Layout.cshtml`
 -   **Action:** Add a link to the "Listings" page in the main navigation bar.
@@ -225,7 +225,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     </li>
     ```
 
-### Task 2.4: Display Seller Information in Views
+### [x] Task 2.4: Display Seller Information in Views
 
 -   **File:** `Views/Listings/Index.cshtml`
 -   **Action:** In the table, add a column to display the seller's email.
@@ -237,7 +237,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Allow users to place bids on active listings.*
 
-### Task 3.1: Create Bids Controller
+### [x] Task 3.1: Create Bids Controller
 
 -   **Action:** Create a new controller to handle bid placement logic.
 -   **File:** `Controllers/BidsController.cs`
@@ -300,7 +300,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 3.2: Add Bidding UI to Listing Details Page
+### [x] Task 3.2: Add Bidding UI to Listing Details Page
 
 -   **File:** `Views/Listings/Details.cshtml`
 -   **Action:** Add a form for placing bids and a list to display existing bids.
@@ -346,7 +346,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Add image uploads and improve the homepage.*
 
-### Task 4.1: Enable Image Uploads in Model
+### [x] Task 4.1: Enable Image Uploads in Model
 
 -   **File:** `Models/Listing.cs`
 -   **Action:** Add a non-mapped property to the model to handle the file upload from a form.
@@ -356,7 +356,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     public IFormFile? Image { get; set; }
     ```
 
-### Task 4.2: Update Create View for File Upload
+### [x] Task 4.2: Update Create View for File Upload
 
 -   **File:** `Views/Listings/Create.cshtml`
 -   **Action:** Change the form to support `multipart/form-data` and add an input field for the image.
@@ -371,7 +371,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
         </div>
         ```
 
-### Task 4.3: Update `ListingsController` to Process Image
+### [x] Task 4.3: Update `ListingsController` to Process Image
 
 -   **File:** `Controllers/ListingsController.cs`
 -   **Action:** Modify the `POST Create` action to save the uploaded image to `wwwroot` and store its path in the database.
@@ -405,7 +405,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 4.4: Display Images in Views
+### [x] Task 4.4: Display Images in Views
 
 -   **Action:** Create the `images` directory. Then, modify the `Index` and `Details` views to show the uploaded image.
 -   **Command:** `mkdir wwwroot/images`
@@ -428,7 +428,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 4.5: Enhance the Homepage
+### [x] Task 4.5: Enhance the Homepage
 
 -   **File:** `Controllers/HomeController.cs`
 -   **Action:** Modify the `Index` action to fetch and display active listings.
@@ -503,7 +503,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
 
 *Goal: Implement the core business rules that make the auction functional and fair.*
 
-### Task 5.1: Add Auction End Date
+### [x] Task 5.1: Add Auction End Date
 
 -   **File:** `Models/Listing.cs`
 -   **Action:** Add a property to the `Listing` model to define when the auction ends.
@@ -531,7 +531,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     dotnet ef database update
     ```
 
-### Task 5.2: Implement Critical Bidding Rules
+### [x] Task 5.2: Implement Critical Bidding Rules
 
 -   **File:** `Controllers/BidsController.cs`
 -   **Action:** Enhance the `PlaceBid` action to prevent users from bidding on their own listings or on expired auctions.
@@ -581,7 +581,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 5.3: Manual Auction Closing
+### [x] Task 5.3: Manual Auction Closing
 
 -   **File:** `Controllers/ListingsController.cs`
 -   **Action:** Add a new action to allow the seller to close their auction.
@@ -619,7 +619,7 @@ Of course. Here is the complete, detailed roadmap formatted as a single Markdown
     }
     ```
 
-### Task 5.4: Visual Indicators for Closed Auctions
+### [ ] Task 5.4: Visual Indicators for Closed Auctions (Deferred - Future Enhancement)
 
 -   **File:** `Views/Listings/Details.cshtml`
 -   **Action:** Disable the bidding form and show a "Winner" message if the auction is closed.
