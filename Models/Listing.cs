@@ -14,6 +14,10 @@ namespace Auction.Models
         public string? ImagePath { get; set; }
         public bool IsSold { get; set; }
 
+        [Required]
+        [Display(Name = "Auction End Time")]
+        public DateTime? EndTime { get; set; }
+
         [NotMapped]
         public IFormFile? Image { get; set; }
 

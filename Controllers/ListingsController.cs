@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering; // Added for SelectList in preserved E
 using System; // Added for System.Linq in preserved ListingExists
 using System.Linq; // Added for Any() in preserved ListingExists
 using System.Threading.Tasks; // Added for async methods
+using System.IO;
 
 namespace Auction.Controllers
 {
@@ -60,13 +61,24 @@ namespace Auction.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price")] Listing listing)
+        public async Task<IActionResult> Create([Bind("Id,Title,Description,Price,Image,EndTime")] Listing listing)
         {
             if (ModelState.IsValid)
             {
                 listing.IdentityUserId = _userManager.GetUserId(User);
                 listing.IsSold = false;
                 
+                if (listing.Image != null)
+                {
+                    var fileName = Path.GetRandomFileName() + Path.GetExtension(listing.Image.FileName);
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", fileName);
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await listing.Image.CopyToAsync(fileStream);
+                    }
+                    listing.ImagePath = "/images/" + fileName; // Save the path to be used in views
+                }
+
                 _context.Add(listing);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

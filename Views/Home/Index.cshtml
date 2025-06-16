@@ -1,8 +1,38 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<Auction.Models.Listing>
+@{
+    ViewData["Title"] = "Active Listings";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Auction</h1>
+    <p>Browse the active listings below.</p>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                @if (!string.IsNullOrEmpty(item.ImagePath))
+                {
+                    <img src="@item.ImagePath" class="card-img-top" style="height: 225px; width: 100%; display: block; object-fit: cover;" />
+                }
+                else
+                {
+                    <div class="card-img-top bg-secondary" style="height: 225px; width: 100%; display: flex; align-items: center; justify-content: center;">
+                        <span class="text-white">No Image</span>
+                    </div>
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text" style="height: 4.5em; overflow: hidden;">@item.Description</p>
+                    <p class="card-text"><strong>Price: $@item.Price</strong></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a asp-controller="Listings" asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">View Details</a>
+                        <small class="text-muted">by @item.user.UserName</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </div>
